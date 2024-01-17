@@ -1,10 +1,15 @@
 package com.example.instagram
 
+import android.app.Instrumentation.ActivityResult
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.instagram.databinding.ActivitySignUpBinding
 import com.example.instagram.models.user
+import com.example.instagram.util.USER_NODE
+import com.example.instagram.util.USER_PROFILE_FOLDER
+import com.example.instagram.util.uploadImage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.auth.User
@@ -16,6 +21,19 @@ class SignUpActivity : AppCompatActivity() {
         ActivitySignUpBinding.inflate(layoutInflater)
     }
     lateinit var usermodel:user
+    private val launcher = registerForActivityResult(ActivityResultContracts.GetContent()){
+        uri->
+        uri?.let{
+            uploadImage(uri, USER_PROFILE_FOLDER){
+                if(it==null){
+
+                }else{
+                    usermodel.image = it
+                    binding.profileImage.setImageURI(uri)
+                }
+            }
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,7 +52,7 @@ class SignUpActivity : AppCompatActivity() {
                         usermodel.email = binding.emailField.editText?.text.toString()
                         usermodel.password = binding.passwordField.editText?.text.toString()
 
-                        Firebase.firestore.collection("Users").document(Firebase.auth.currentUser!!.uid).set(usermodel).addOnSuccessListener {
+                        Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).set(usermodel).addOnSuccessListener {
                             Toast.makeText(this@SignUpActivity, "SuccessFul", Toast.LENGTH_LONG).show()
                         }
                     }
@@ -43,6 +61,10 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        binding.profilePlus.setOnClickListener {
+            launcher.launch("image/*")
         }
     }
 }
