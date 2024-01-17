@@ -1,6 +1,7 @@
 package com.example.instagram
 
 import android.app.Instrumentation.ActivityResult
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -65,6 +66,11 @@ class SignUpActivity : AppCompatActivity() {
 
         binding.profilePlus.setOnClickListener {
             launcher.launch("image/*")
+        }
+
+        binding.loginTextView.setOnClickListener{
+            startActivity(Intent(this@SignUpActivity, LoginActivity::class.java))
+            finish()
         }
     }
 }
