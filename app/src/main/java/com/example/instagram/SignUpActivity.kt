@@ -54,7 +54,8 @@ class SignUpActivity : AppCompatActivity() {
                         usermodel.password = binding.passwordField.editText?.text.toString()
 
                         Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).set(usermodel).addOnSuccessListener {
-                            Toast.makeText(this@SignUpActivity, "SuccessFul", Toast.LENGTH_LONG).show()
+                            startActivity(Intent(this@SignUpActivity, HomeActivity::class.java))
+                            finish()
                         }
                     }
                     else{

@@ -23,7 +23,7 @@
         android:id="@+id/loginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name"
+        android:hint="Email"
 
         app:layout_constraintTop_toBottomOf="@id/appLogo"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -43,7 +43,7 @@
         android:id="@+id/loginPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="Password"
 
         app:layout_constraintTop_toBottomOf="@id/loginEmail"
         app:layout_constraintLeft_toLeftOf="@id/loginEmail"
