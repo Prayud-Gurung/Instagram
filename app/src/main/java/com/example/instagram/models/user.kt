@@ -1,23 +1,23 @@
 package com.example.instagram.models
 
 class user {
-    var image:String?=null
+    var image:String=""
     var name:String?=null
     var email:String?=null
     var password:String?=null
 
     constructor()
-    constructor(image: String?, name: String?, email: String?, password: String?) {
+    constructor(image: String, name: String?, email: String?, password: String?) {
         this.image = image
         this.name = name
         this.email = email
         this.password = password
     }
 
-    constructor(name: String?, email: String?, password: String?) {
-        this.name = name
+    constructor(name:String?, email: String?, password: String?) {
         this.email = email
         this.password = password
+        this.name = name
     }
 
     constructor(email: String?, password: String?) {

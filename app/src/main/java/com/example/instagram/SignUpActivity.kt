@@ -15,7 +15,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class SignUpActivity : AppCompatActivity() {
     val binding by lazy{
@@ -40,29 +42,57 @@ class SignUpActivity : AppCompatActivity() {
 
         setContentView(binding.root)
         usermodel = user()
-        binding.registerBtn.setOnClickListener {
-            if(binding.nameField.editText?.text.toString().equals("") or binding.emailField.editText?.text.toString().equals("") or binding.passwordField.editText?.text.toString().equals("")){
-                Toast.makeText(this@SignUpActivity, "Please fill fields", Toast.LENGTH_LONG).show()
-            }
-            else{
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.emailField.editText?.text.toString(), binding.passwordField.editText?.text.toString()).addOnCompleteListener {
-                    result->
-                    if(result.isSuccessful){
 
-                        usermodel.name = binding.nameField.editText?.text.toString()
-                        usermodel.email = binding.emailField.editText?.text.toString()
-                        usermodel.password = binding.passwordField.editText?.text.toString()
+        if(intent.hasExtra("MODE")){
+            if(intent.getIntExtra("MODE", -1)==1){
+                binding.registerBtn.text = "Update Profile"
 
-                        Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).set(usermodel).addOnSuccessListener {
-                            startActivity(Intent(this@SignUpActivity, HomeActivity::class.java))
-                            finish()
-                        }
-                    }
-                    else{
-                        Toast.makeText(this@SignUpActivity, result.exception?.localizedMessage, Toast.LENGTH_SHORT).show()
+                Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
+                    usermodel= it.toObject<user>()!!
+
+                    if(!usermodel.image.isNullOrEmpty()){
+                        Picasso.get().load(usermodel.image).into(binding.profileImage)
                     }
                 }
             }
+
+        }
+
+        binding.registerBtn.setOnClickListener {
+            if(intent.hasExtra("MODE")){
+                if(intent.getIntExtra("MODE", -1) == 1){
+
+                    Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).set(usermodel).addOnSuccessListener {
+                        startActivity(Intent(this@SignUpActivity, HomeActivity::class.java))
+                        finish()
+                    }
+                }
+            }
+            else{
+                if(binding.nameField.editText?.text.toString().equals("") or binding.emailField.editText?.text.toString().equals("") or binding.passwordField.editText?.text.toString().equals("")){
+                    Toast.makeText(this@SignUpActivity, "Please fill fields", Toast.LENGTH_LONG).show()
+                }
+                else{
+                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.emailField.editText?.text.toString(), binding.passwordField.editText?.text.toString()).addOnCompleteListener {
+                            result->
+                        if(result.isSuccessful){
+
+                            usermodel.name = binding.nameField.editText?.text.toString()
+                            usermodel.email = binding.emailField.editText?.text.toString()
+                            usermodel.password = binding.passwordField.editText?.text.toString()
+
+                            Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid).set(usermodel).addOnSuccessListener {
+                                startActivity(Intent(this@SignUpActivity, HomeActivity::class.java))
+                                finish()
+                            }
+                        }
+                        else{
+                            Toast.makeText(this@SignUpActivity, result.exception?.localizedMessage, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+
         }
 
         binding.profilePlus.setOnClickListener {
