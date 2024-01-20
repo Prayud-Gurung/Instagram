@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.AddFragment">
+    android:layout_height="wrap_content"
+    tools:context=".fragments.AddFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/addPost"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/addPostImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/photo"/>
+
+        <TextView
+            android:id="@+id/addPostTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="Add Post"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/addReel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/addReelImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/reel"/>
+
+        <TextView
+            android:id="@+id/addReelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="Add Reel"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

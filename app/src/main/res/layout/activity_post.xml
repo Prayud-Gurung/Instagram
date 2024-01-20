@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".post.PostActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="New Post"
+        app:titleTextColor="#000000" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/postImageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="24dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/photo"
+        app:layout_constraintLeft_toLeftOf="@id/materialToolbar"
+
+
+        app:layout_constraintRight_toRightOf="@id/materialToolbar"
+        app:layout_constraintTop_toBottomOf="@id/materialToolbar"
+
+        app:riv_border_color="#333333"
+        app:riv_border_width="2dip"
+        app:riv_corner_radius="30dip"
+        app:riv_tile_mode="repeat" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/captionField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write a caption"
+        app:boxStrokeColor="@color/purple_200"
+
+        app:layout_constraintTop_toBottomOf="@id/postImageView"
+        app:layout_constraintLeft_toLeftOf="@id/postImageView"
+        app:layout_constraintRight_toRightOf="@id/postImageView"
+
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="56dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/addPostLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+
+        app:layout_constraintTop_toBottomOf="@id/captionField"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+            android:id="@+id/addPost"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/photo"/>
+
+        <TextView
+            android:id="@+id/addPostTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="Share to Post"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/noteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+
+        android:text="Your post will appear in Posts and can be seen in posts tab under your profile"
+        app:layout_constraintLeft_toLeftOf="@id/addPostLinear"
+        app:layout_constraintRight_toRightOf="@id/addPostLinear"
+        app:layout_constraintTop_toBottomOf="@id/addPostLinear" />
+
+    <LinearLayout
+        android:id="@+id/postButtonsLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:gravity="center"
+
+        app:layout_constraintTop_toBottomOf="@id/noteTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <Button
+            android:id="@+id/cancelPostBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/postBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Post"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
